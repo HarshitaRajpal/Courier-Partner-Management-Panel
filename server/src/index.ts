@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./config/connectDB";
+import partnerRoutes from "./routes/partnerRoutes";
 
 dotenv.config();
 
@@ -11,6 +12,8 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 connectDB();
+
+app.use("/api/partners", partnerRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
