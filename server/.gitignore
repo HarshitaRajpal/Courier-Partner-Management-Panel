@@ -22,6 +22,9 @@ out/
 
 # Prisma
 prisma/generated/
+src/generated/
+*.dylib.node
+libquery_engine*.node
 prisma/migrations/dev.db
 prisma/dev.db
 *.db-journal
