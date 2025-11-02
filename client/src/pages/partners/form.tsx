@@ -5,9 +5,13 @@ import type { FieldConfig } from "./types";
 const FormFields = () => {
   const InputComponent = ({ field }: { field: FieldConfig }) => {
     return field.type === "number" ? (
-      <InputNumber {...field} className="w-full!" />
+      <InputNumber
+        placeholder={field.placeholder}
+        className="w-full!"
+        min={0}
+      />
     ) : (
-      <Input {...field} />
+      <Input placeholder={field.placeholder} type={field.type} />
     );
   };
 
@@ -16,7 +20,6 @@ const FormFields = () => {
       key={field.name}
       label={field.label}
       name={field.name}
-      layout={field.layout}
       rules={field.rules}
       initialValue={field.initialValue}
     >

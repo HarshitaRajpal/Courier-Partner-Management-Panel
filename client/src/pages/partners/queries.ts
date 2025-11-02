@@ -1,7 +1,8 @@
 import { partnersApi } from "./api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Partner } from "./types";
-import { message } from "antd";
+import { toast } from "sonner";
+import type { AxiosError } from "axios";
 
 export const PARTNERS_QUERY_KEY = "PARTNERS";
 
@@ -25,11 +26,12 @@ export const useCreatePartner = () => {
     mutationFn: partnersApi.createPartner,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [PARTNERS_QUERY_KEY] });
-      message.success("Partner created successfully");
+      toast.success("Partner created successfully");
     },
-    onError: (error) => {
-      console.log(error);
-      message.error(error.message || "Failed to create partner");
+    onError: (error: AxiosError<{ message: string }>) => {
+      console.error(error);
+      const errorMsg = error?.message || "Failed to create partner";
+      toast.error(errorMsg);
     },
   });
 };
@@ -41,11 +43,12 @@ export const useUpdatePartner = () => {
       partnersApi.updatePartner(id, partner),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [PARTNERS_QUERY_KEY] });
-      message.success("Partner updated successfully");
+      toast.success("Partner updated successfully");
     },
-    onError: (error) => {
-      console.log(error);
-      message.error(error.message || "Failed to update partner");
+    onError: (error: AxiosError<{ message: string }>) => {
+      console.error(error);
+      const errorMsg = error?.message || "Failed to update partner";
+      toast.error(errorMsg);
     },
   });
 };

@@ -1,3 +1,5 @@
+import type { Rule } from "antd/es/form";
+
 export type Partner = {
   id: string;
   name: string;
@@ -14,7 +16,7 @@ export interface FieldConfig {
   label: string;
   name: string;
   layout?: "vertical" | "horizontal";
-  rules: Array<{ required: boolean; message: string }>;
+  rules?: Rule[];
   placeholder?: string;
   type?: "email" | "number" | "text";
   initialValue?: number;

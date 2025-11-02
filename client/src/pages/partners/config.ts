@@ -47,7 +47,6 @@ export const formFieldsConfig: FieldConfig[] = [
     label: "Rating",
     name: "rating",
     layout: "horizontal",
-    rules: [{ required: true, message: "Please enter the rating" }],
     initialValue: 0,
     component: "rate",
   },
