@@ -44,7 +44,7 @@ const Menu: React.FC = () => {
               <ShopOutlined className="text-white text-xl" />
             </div>
             <span className="text-lg font-semibold text-gray-800">
-              Courier Partner
+              Courier Partner 
             </span>
           </div>
         ) : (
