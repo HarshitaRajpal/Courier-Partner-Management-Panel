@@ -27,8 +27,9 @@ export const useCreatePartner = () => {
       queryClient.invalidateQueries({ queryKey: [PARTNERS_QUERY_KEY] });
       message.success("Partner created successfully");
     },
-    onError: () => {
-      message.error("Failed to create partner");
+    onError: (error) => {
+      console.log(error);
+      message.error(error.message || "Failed to create partner");
     },
   });
 };
@@ -42,8 +43,9 @@ export const useUpdatePartner = () => {
       queryClient.invalidateQueries({ queryKey: [PARTNERS_QUERY_KEY] });
       message.success("Partner updated successfully");
     },
-    onError: () => {
-      message.error("Failed to update partner");
+    onError: (error) => {
+      console.log(error);
+      message.error(error.message || "Failed to update partner");
     },
   });
 };

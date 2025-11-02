@@ -1,7 +1,7 @@
 import React from "react";
 import type { Partner } from "./types";
 import { Button, Form, Modal } from "antd";
-import { useUpdatePartner } from "./queries";
+import { useCreatePartner, useUpdatePartner } from "./queries";
 import FormFields from "./form";
 
 const CreateOrUpdatePartnerModal: React.FC<{
@@ -11,18 +11,18 @@ const CreateOrUpdatePartnerModal: React.FC<{
   action: "create" | "update";
 }> = ({ open, intialData, onClose, action }) => {
   const [form] = Form.useForm();
-  //   const createMutation = useCreatePartner();
+  const createMutation = useCreatePartner();
   const updateMutation = useUpdatePartner();
 
   const handleSubmit = () => {
+    const formData = form.getFieldsValue();
     if (action === "create") {
-      //   createMutation.mutate(intialData);
+      createMutation.mutate(formData);
     } else {
       if (intialData)
-        updateMutation.mutate({ id: intialData?.id, partner: intialData });
+        updateMutation.mutate({ id: intialData?.id, partner: formData });
     }
   };
-
   return (
     <Modal
       open={open}
