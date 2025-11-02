@@ -284,6 +284,6 @@ The `Partner` model includes:
 - Run `npx prisma migrate reset` to reset the database (⚠️ This will delete all data)
 - Run `npx prisma studio` to open Prisma Studio and inspect your database
 
-## Scrrenshots
+## Screenshots
 
 <img width="1440" height="777" alt="image" src="https://github.com/user-attachments/assets/767ecded-3b83-4b27-beee-b20f2389d88b" />
