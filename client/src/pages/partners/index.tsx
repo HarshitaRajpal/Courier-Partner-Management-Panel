@@ -1,110 +1,31 @@
-import { Button, Table, Tag, Space, Empty } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import { PlusOutlined, TeamOutlined } from "@ant-design/icons";
+import { Button, Space } from "antd";
+import { useState } from "react";
+import CreateOrUpdatePartnerModal from "./modal";
 import type { Partner } from "./types";
-import { useGetAllPartners } from "./queries";
-import {
-  EditOutlined,
-  PlusOutlined,
-  StarFilled,
-  TeamOutlined,
-} from "@ant-design/icons";
-import { formatCurrency, formatDate } from "../../utils";
+import PartnersList from "./list";
+
+type ModalData = {
+  open: boolean;
+  intialData?: Partner;
+  action: "create" | "update";
+};
 
 const PartnersPage = () => {
-  const { data, isLoading, isError } = useGetAllPartners();
+  const defaultModalData = {
+    open: false,
+    intialData: undefined,
+    action: "create" as const,
+  };
+  const [modalData, setModalData] = useState<ModalData>(defaultModalData);
 
-  const handleEdit = (id: string) => {
-    console.log(id);
+  const handleEdit = (data: Partner) => {
+    setModalData({ open: true, intialData: data, action: "update" });
+  };
+  const handleCreate = () => {
+    setModalData({ open: true, action: "create" });
   };
 
-  const columns: ColumnsType<Partner> = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      render: (text) => (
-        <span className="font-medium text-gray-900">{text}</span>
-      ),
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      render: (text) => <span className="text-gray-600">{text || "-"}</span>,
-    },
-    {
-      title: "Phone",
-      dataIndex: "phone",
-      key: "phone",
-      render: (text) => <span className="text-gray-600">{text || "-"}</span>,
-    },
-    {
-      title: "Base Rate",
-      dataIndex: "baseRate",
-      key: "baseRate",
-      ellipsis: true,
-      render: (value) => formatCurrency(value),
-    },
-    {
-      title: "Delivery Speed",
-      dataIndex: "deliverySpeed",
-      key: "deliverySpeed",
-      ellipsis: true,
-      render: (text) => (
-        <Tag color="blue" className="border-none">
-          {text || "-"}
-        </Tag>
-      ),
-    },
-    {
-      title: "Rating",
-      dataIndex: "rating",
-      key: "rating",
-      align: "center",
-      render: (rating) => {
-        return (
-          <Tag color={rating >= 4 ? "green" : rating >= 3 ? "orange" : "red"}>
-            {rating.toFixed(1)} <StarFilled />
-          </Tag>
-        );
-      },
-    },
-    {
-      title: "Created At",
-      dataIndex: "createdAt",
-      key: "createdAt",
-      ellipsis: true,
-      render: (date) => (
-        <span className="text-gray-500 text-sm">{formatDate(date)}</span>
-      ),
-    },
-    {
-      title: "Updated At",
-      dataIndex: "updatedAt",
-      key: "updatedAt",
-      ellipsis: true,
-      render: (date) => (
-        <span className="text-gray-500 text-sm">{formatDate(date)}</span>
-      ),
-    },
-    {
-      title: "Actions",
-      key: "actions",
-      align: "center",
-      width: 100,
-      render: (_, record) => (
-        <Button
-          type="primary"
-          ghost
-          size="small"
-          onClick={() => handleEdit(record.id)}
-          icon={<EditOutlined />}
-        >
-          Edit
-        </Button>
-      ),
-    },
-  ];
   return (
     <div className="h-full">
       <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
@@ -121,33 +42,24 @@ const PartnersPage = () => {
             </p>
           </div>
         </Space>
-        <Button type="primary" icon={<PlusOutlined />} size="large">
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          size="large"
+          onClick={handleCreate}
+        >
           Create Partner
         </Button>
       </div>
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-        <Table
-          rowKey="id"
-          loading={isLoading}
-          columns={columns}
-          dataSource={data}
-          className="custom-table"
-          tableLayout="auto"
-          locale={{
-            emptyText: isError ? (
-              <Empty description="Error fetching partners" />
-            ) : (
-              <Empty description="No partners found" />
-            ),
-          }}
-          pagination={{
-            showSizeChanger: true,
-            showTotal: (total) => `Total ${total} partners`,
-            pageSizeOptions: ["10", "20", "50", "100"],
-            defaultPageSize: 10,
-          }}
-        />
-      </div>
+
+      <PartnersList handleEdit={handleEdit} />
+
+      <CreateOrUpdatePartnerModal
+        open={modalData.open}
+        intialData={modalData.intialData}
+        onClose={() => setModalData(defaultModalData)}
+        action={modalData.action}
+      />
     </div>
   );
 };
