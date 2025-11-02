@@ -9,7 +9,7 @@ const BaseLayout: React.FC = () => {
     <Layout className="h-dvh bg-gray-50">
       <Menu />
       <Layout>
-        <Content className="m-6 p-6 min-h-dvh bg-white rounded-lg shadow-sm">
+        <Content className="m-2 p-4 min-h-dvh bg-white rounded-lg shadow-sm">
           <Outlet />
         </Content>
       </Layout>
