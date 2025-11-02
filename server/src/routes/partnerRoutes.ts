@@ -1,17 +1,16 @@
 import express from "express";
-import { getPartners } from "../controllers/partner/getPartners";
-import { createPartner } from "../controllers/partner/createPartner";
-import { updatePartner } from "../controllers/partner/updatePartner";
-import { deletePartner } from "../controllers/partner/deletePartner";
-import { getPartnerById } from "../controllers/partner/getPartnerById";
-
+import { createPartnerController } from "../controllers/partner/createPartnerController";
+import { deletePartnerController } from "../controllers/partner/deletePartnerController";
+import { getPartnerByIdController } from "../controllers/partner/getPartnerByIdController";
+import { getPartnersController } from "../controllers/partner/getPartnersController";
+import { updatePartnerController } from "../controllers/partner/updatePartnerController";
 
 const router = express.Router();
 
-router.get("/", getPartners);
-router.post("/", createPartner);
-router.put("/:id", updatePartner); 
-router.delete("/:id", deletePartner); 
-router.get("/:id", getPartnerById);
+router.get("/", getPartnersController);
+router.post("/", createPartnerController);
+router.put("/:id", updatePartnerController);
+router.delete("/:id", deletePartnerController);
+router.get("/:id", getPartnerByIdController);
 
 export default router;
