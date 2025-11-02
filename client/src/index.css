@@ -1,1 +1,44 @@
 @import "tailwindcss";
+
+/* remove harsh default borders */
+.custom-table .ant-table,
+.custom-table .ant-table-container {
+    background: #ffffff !important;
+    border-radius: 12px;
+    border: none !important;
+}
+
+/* header style */
+.custom-table .ant-table-thead>tr>th {
+    background-color: #f4f5f7 !important;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333 !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    letter-spacing: 0.2px;
+}
+
+/* rows */
+.custom-table .ant-table-tbody>tr>td {
+    padding: 14px 16px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+    color: #444;
+    background: #fff;
+}
+
+/* hover effect */
+.custom-table .ant-table-tbody>tr:hover>td {
+    background: #f9fafb !important;
+}
+
+/* loading state */
+.custom-table .ant-spin-nested-loading {
+    background-color: #fafafa !important;
+    border-radius: 12px;
+}
+
+/* pagination */
+.custom-table .ant-pagination {
+    padding: 16px;
+    margin-top: 0 !important;
+}
